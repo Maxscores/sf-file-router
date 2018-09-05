@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 // allow certain urls
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "POST, GET");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
   res.header("Access-Control-Allow-Headers", "username, token, parentId, fileName, content-type");
 
   if (req.method === 'OPTIONS') {
