@@ -4,7 +4,11 @@ var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
 
+const bodyParser = require("body-parser");
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));  
 
 
 var app = express();
