@@ -5,10 +5,8 @@ var FilesController = require('../../../controllers/files-controller')
 var filesController = new FilesController
 
 /* GET users listing. */
-router.get('/:sfId/:sfPW/:parentId', filesController.uploadFile);
+router.get('/', filesController.uploadFile);
 //
-// router.post('/:id', function(req, res, nest) {
-//
-// })
+router.post('/', filesController.uploadFile);
 
 module.exports = router;
