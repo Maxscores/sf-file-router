@@ -14,7 +14,8 @@ class FilesController {
       } else {
         var sessionId = sfRes.accessToken
         var fileName = req.body.fileName
-        var fileString = req.body.fileContents
+        // var fileString = req.body.fileContents
+        var fileString = fs.readFileSync(req.body.fileContents)
         var b64TestFile = Buffer.from(fileString).toString('base64')
         conn.requestPost(
           '/services/data/v43.0/composite/',
