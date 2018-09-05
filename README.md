@@ -22,3 +22,8 @@ In a web browser visit:
 `https://localhost:3000/[yourSFlogin@example.org.com]/[yourPasswordAndSecurityToken]`
 
 You should see a JSON response with the first 10 accounts returned
+
+
+## Key Libraries
+[JSForce](https://jsforce.github.io/)
+[Express](https://expressjs.com)
