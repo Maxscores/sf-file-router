@@ -3,12 +3,7 @@ var apiV1FileRouter = require('./routes/api/v1/files');
 var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
-
-const bodyParser = require("body-parser");
-
-app.use(bodyParser.urlencoded({
-    extended: true
-}));  
+var bodyParser = require("body-parser");
 
 
 var app = express();
@@ -18,7 +13,9 @@ app.set('view engine', 'ejs');
 // view engine setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use('/api/v1/files', apiV1FileRouter);
 
 // catch 404 and forward to error handler
