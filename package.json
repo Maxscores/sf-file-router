@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js  --hot --inline",
+    "start": "node ./bin/www",
     "build": "./node_modules/webpack/bin/webpack.js"
   },
   "author": "",
