@@ -2,28 +2,40 @@ var jsforce = require('jsforce');
 var conn = new jsforce.Connection({
   loginUrl: 'https://test.salesforce.com'
 });
+var fs = require('fs')
 
-
+// var b64EncodeUnicode = require('b64EncodeUnicode')
 
 class FilesController {
-  post(req, res, next) {
-    res.send('hello world')
-    // res.send(sfResponse)
-
-  }
-
-  get(req, res, next) {
-    conn.login(req.params.sf_id, req.params.sf_pw, function(err, sfRes) {
+  uploadFile(req, res, next) {
+    conn.login(req.params.sfId, req.params.sfPW, function(err, sfRes) {
       if (err) {
         res.send(err)
       } else {
-        if (err) {
-          res.send(err)
-        } else {
-          conn.query('SELECT Id, Name FROM Account LIMIT 10', function(err, sfRes) {
-            res.send(sfRes)
-          })
-        }
+        var sessionId = sfRes.accessToken
+        var fileName = 'FitSDKRelease_20.54.00.zip'
+        var fileString = fs.readFileSync('./' + fileName)
+        var b64TestFile = Buffer.from(fileString).toString('base64')
+        conn.requestPost(
+          '/services/data/v43.0/composite/',
+          {
+            'allOrNone': true,
+            'compositeRequest': [{
+              'method': 'POST',
+              'url': '/services/data/v43.0/sobjects/ContentVersion',
+              'referenceId' : 'newFile',
+              'body': {
+                'FirstPublishLocationId': req.params.parentId,
+                'Title': fileName,
+                'PathOnClient': fileName,
+                'VersionData': b64TestFile,
+                'Description': 'this is a test file'
+              }
+            }]
+          }
+        ).then(response => {
+          res.send(response)
+        })
       }
     })
   }
