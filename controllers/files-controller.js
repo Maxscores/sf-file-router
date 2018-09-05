@@ -18,7 +18,8 @@ class FilesController {
         // var fileName = 'test.txt'
         // var fileString = fs.readFileSync('./' + fileName)
         // var b64TestFile = Buffer.from(Object.keys(req.body)).toString('base64')
-        var b64TestFile = Buffer.from(req.file.buffer).toString('base64')
+        // var b64TestFile = Buffer.from(req.file.buffer).toString('base64')
+        var b64TestFile = req.body.file
         var request = {
           'method': 'POST',
           'url': '/services/data/v43.0/sobjects/ContentVersion',
