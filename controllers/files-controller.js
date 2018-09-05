@@ -13,7 +13,7 @@ class FilesController {
         res.send(err)
       } else {
         var sessionId = sfRes.accessToken
-        var fileName = 'FitSDKRelease_20.54.00.zip'
+        var fileName = 'test.txt'
         var fileString = fs.readFileSync('./' + fileName)
         var b64TestFile = Buffer.from(fileString).toString('base64')
         conn.requestPost(
