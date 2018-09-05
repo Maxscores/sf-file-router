@@ -15,4 +15,8 @@ router.get('/', filesController.uploadFile);
 //
 router.post('/', filesController.uploadFile);
 
+router.options('/', function(res) {
+  res.send(200)
+})
+
 module.exports = router;
