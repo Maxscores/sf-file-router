@@ -19,7 +19,9 @@ Start the app:
 `node app.js`
 
 In a web browser visit:
-`https://localhost:3000/[yourSFlogin@example.org.com]/[yourPasswordAndSecurityToken]`
+`https://localhost:3000/[yourSFlogin@example.org.com]/[yourPasswordAndSecurityToken]/[sfParentObject]/[filename]`
+
+** Note - the file must be in same directory as the project
 
 You should see a JSON response with the first 10 accounts returned
 
