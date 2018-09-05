@@ -8,31 +8,34 @@ var fs = require('fs')
 
 class FilesController {
   uploadFile(req, res, next) {
-    conn.login(req.body.username, req.body.token, function(err, sfRes) {
+    conn.login(req.headers.username, req.headers.token, function(err, sfRes) {
+      console.log(req.headers);
       if (err) {
-        res.send(err)
+        res.send(sfRes)
       } else {
         var sessionId = sfRes.accessToken
-        var fileName = req.body.fileName
-        // var fileString = req.body.fileContents
-        var fileString = fs.readFileSync(req.body.fileContents)
-        var b64TestFile = Buffer.from(fileString).toString('base64')
+        var fileName = req.headers.filename
+        // var fileName = 'test.txt'
+        // var fileString = fs.readFileSync('./' + fileName)
+        // var b64TestFile = Buffer.from(Object.keys(req.body)).toString('base64')
+        var b64TestFile = Buffer.from(req.file.buffer).toString('base64')
+        var request = {
+          'method': 'POST',
+          'url': '/services/data/v43.0/sobjects/ContentVersion',
+          'referenceId' : 'newFile',
+          'body': {
+            'FirstPublishLocationId': req.headers.parentid,
+            'Title': fileName,
+            'PathOnClient': fileName,
+            'VersionData': b64TestFile,
+            'Description': 'this is a test file'
+          }
+        }
         conn.requestPost(
           '/services/data/v43.0/composite/',
           {
             'allOrNone': true,
-            'compositeRequest': [{
-              'method': 'POST',
-              'url': '/services/data/v43.0/sobjects/ContentVersion',
-              'referenceId' : 'newFile',
-              'body': {
-                'FirstPublishLocationId': req.body.parentId,
-                'Title': fileName,
-                'PathOnClient': fileName,
-                'VersionData': b64TestFile,
-                'Description': 'this is a test file'
-              }
-            }]
+            'compositeRequest': [request]
           }
         ).then(response => {
           res.send(response)
